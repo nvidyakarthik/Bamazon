@@ -15,7 +15,7 @@ connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
     managerInput();
-    connection.end();
+    
 });
 function managerInput(){
     inquirer.prompt([
@@ -26,8 +26,36 @@ function managerInput(){
             choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory","Add New Product"]
           }
 
-    ]).then(function(user) {  
-        console.log(user.options) ;
+    ]).then(function(response) {  
+        console.log(response.options) ;
+        switch(response.options){
+            case "View Products for Sale":
+                viewProducts();
+                break;
+            case "View Low Inventory":
+                viewLowInventory();
+                break;
+            case "Add to Inventory":
+                addInventory();
+                break; 
+            case "Add New Product":
+                  addProduct();
+                break;  
+            }
+    });
+}
+
+function viewProducts(){
+    connection.query("SELECT * FROM products", function (err, res) {
+        if (err) throw err;
+        // Log all results of the SELECT statement
+        //console.log(res);
+        var tableFormat = new AsciiTable('PRODUCT LIST');
+        tableFormat.setHeading('ITEM ID', 'PRODUCT NAME', 'PRICE','QUANTITES');
+        for (var index in res)
+            tableFormat.addRow(res[index].item_id, res[index].product_name, res[index].price,res[index].stock_quantity);
+        console.log(tableFormat.toString());
+        connection.end();
     });
 }
 
