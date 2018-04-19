@@ -59,3 +59,17 @@ function viewProducts(){
     });
 }
 
+function viewLowInventory(){
+    connection.query("SELECT * FROM products WHERE stock_quantity <=100", function(err, res) {
+        if (err) throw err;
+        // Log all results of the SELECT statement
+        var tableFormat = new AsciiTable('INVENTORY LESS THEN 100');
+        tableFormat.setHeading('ITEM ID', 'PRODUCT NAME', 'PRICE','QUANTITES');
+        for (var index in res)
+            tableFormat.addRow(res[index].item_id, res[index].product_name, res[index].price,res[index].stock_quantity);
+        console.log(tableFormat.toString());
+        connection.end();
+         
+            
+      });
+}
