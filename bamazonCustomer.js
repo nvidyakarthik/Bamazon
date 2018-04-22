@@ -56,17 +56,13 @@ function userInput() {
     ]).then(function (response) {
         console.log(response.itemId);
         checkQuantity(response.itemId, Number(response.quantity));
-        connection.end();
-
-
-
 
     });
 
 }
 function checkQuantity(itemId, quantityReq) {
 
-    connection.query("SELECT stock_quantity,price FROM products WHERE item_id=?", [itemId], function (err, res) {
+    connection.query("SELECT stock_quantity,price,product_sales FROM products WHERE item_id=?", [itemId], function (err, res) {
         if (err) throw err;
         // Log all results of the SELECT statement
         /* console.log(res);
@@ -74,23 +70,31 @@ function checkQuantity(itemId, quantityReq) {
         if (res.length != 0) {
             if (quantityReq <= res[0].stock_quantity && quantityReq > 0) {
                 var remainingQuanity = res[0].stock_quantity - quantityReq;
-                updateQuanity(itemId, remainingQuanity);
-                console.log("Your Total cost is $" + res[0].price * quantityReq);
+                var totalCost=res[0].price * quantityReq;
+                console.log("Your Total cost is $" + totalCost);
+                var newProductSalaes=res[0].product_sales+totalCost;
+                updateQuanity(itemId, remainingQuanity,newProductSalaes);
+                
+                
             }
             else if (quantityReq < 0) {
                 console.log("Please enter valid quantity.");
+                connection.end();
             }
             else if (quantityReq == 0) {
                 console.log("You entered " + quantityReq + " Please enter the correct quantity.");
+                connection.end();
 
             }
             else {
                 console.log("Insufficient quantity!");
+                connection.end();
             }
 
         }
         else {
             console.log("Please enter valid Item Id number");
+            connection.end();
         }
 
 
@@ -101,21 +105,26 @@ function checkQuantity(itemId, quantityReq) {
 
 }
 
-function updateQuanity(itemId, quantity) {
+
+
+function updateQuanity(itemId, quantity,productSales) {
 
     var query = connection.query(
         "UPDATE products SET ? WHERE ?",
         [
             {
-                stock_quantity: quantity
+                stock_quantity: quantity,
+                product_sales: productSales
             },
             {
                 item_id: itemId
             }
         ],
         function (err, res) {
-            console.log(err);
+            //console.log(err);
+            //console.log(query);
             console.log(res.affectedRows + " products updated!\n");
+            connection.end();
            
         }
     );
