@@ -50,7 +50,16 @@ function userInput() {
         {
             type: "input",
             name: "itemId",
-            message: "Please Enter the Item Id."
+            message: "Please Enter the Item Id.",
+            validate: function (value) {
+                if (isNaN(value) === true) {
+                    console.log("\nPlease enter a Valid number.");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
 
         },
         {
@@ -118,8 +127,8 @@ function checkQuantity(itemId, quantityReq) {
 
             }
             else {
-                console.log("Insufficient quantity!");
-                connectionDB.end();
+                console.log("Insufficient quantity! We have only "+res[0].stock_quantity +" Quantities");
+                userInput();
             }
 
         }
