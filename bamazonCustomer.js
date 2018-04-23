@@ -62,7 +62,7 @@ function userInput() {
                     console.log("\nPlease enter a Valid number.");
                     return false;
                 }
-                else if (Number.isInteger(Number(value) === false)) {
+                else if (Number.isInteger(Number(value)) === false) {
                     console.log("\nPlease enter a Valid number.");
                     return false;
                 }
