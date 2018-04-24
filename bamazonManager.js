@@ -1,7 +1,7 @@
 var connectionDB = require("./DBconnection");
 var inquirer = require("inquirer");
 var AsciiTable = require('ascii-table');
-var productArray = [];
+var deptNameArray = [];
 
 function managerInput() {
     inquirer.prompt([
@@ -67,15 +67,15 @@ function viewLowInventory() {
     });
 }
 
-function getProductNameList(callbackfunc) {
+function getDeptNameList(callbackfunc) {
 
-    connectionDB.query("SELECT product_name FROM products", function (err, res) {
+    connectionDB.query("SELECT department_name FROM departments", function (err, res) {
         if (err) throw err;
         //console.log(res);
         for (var index in res)
-            productArray.push(res[index].product_name);
+            deptNameArray.push(res[index].department_name);
         //console.log(productArray);
-        callbackfunc(productArray);
+        callbackfunc(deptNameArray);
 
     });
 
@@ -98,7 +98,7 @@ function getInventory(itemId, callbackfunc) {
 
 function addInventory() {
 
-
+    
     inquirer.prompt([
 
         {
@@ -139,10 +139,11 @@ function addInventory() {
             );
         });
     });
-
+    
 }
 
 function addProduct() {
+    getDeptNameList(function(deptNameList){
     inquirer.prompt([
 
         {
@@ -152,9 +153,10 @@ function addProduct() {
 
         },
         {
-            type: "input",
+            type: "list",
             name: "departmentName",
-            message: "Enter the Department Name "
+            message: "Select Department Name ",
+            choices:deptNameList
         },
         {
             type: "input",
@@ -213,6 +215,7 @@ function addProduct() {
         );
 
     });
+});
 
 }
 
