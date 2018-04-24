@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     // Your username
     user: "root",
     // Your password
-    password: "Nvidya1981!",
+    password: "",
     database: "bamazonDB"
 });
 
