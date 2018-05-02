@@ -2,7 +2,7 @@ var connectionDB = require("./DBconnection");
 var inquirer = require("inquirer");
 var AsciiTable = require('ascii-table');
 var deptNameArray = [];
-
+//This function is the starting point and asks for manager's input
 function managerInput() {
     inquirer.prompt([
         {
@@ -32,7 +32,7 @@ function managerInput() {
         }
     });
 }
-
+//This function lists all the products
 function viewProducts() {
     connectionDB.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
@@ -49,7 +49,7 @@ function viewProducts() {
 
     });
 }
-
+//This function display all the inventory less then 100
 function viewLowInventory() {
     connectionDB.query("SELECT * FROM products WHERE stock_quantity <=100", function (err, res) {
         if (err) throw err;
@@ -66,7 +66,7 @@ function viewLowInventory() {
 
     });
 }
-
+//This function displays only the department names
 function getDeptNameList(callbackfunc) {
 
     connectionDB.query("SELECT department_name FROM departments", function (err, res) {
@@ -80,7 +80,8 @@ function getDeptNameList(callbackfunc) {
     });
 
 }
-
+//This function returns the stock of a particular product
+//callback function is passed here as node is async
 function getInventory(itemId, callbackfunc) {
     connectionDB.query("SELECT stock_quantity FROM products WHERE item_id=?", [itemId], function (err, res) {
         if (err) throw err;
@@ -95,7 +96,7 @@ function getInventory(itemId, callbackfunc) {
     });
 
 }
-
+//This function adds more inventory to a particular product
 function addInventory() {
 
     
@@ -141,7 +142,7 @@ function addInventory() {
     });
     
 }
-
+//This function adds new product to database
 function addProduct() {
     getDeptNameList(function(deptNameList){
     inquirer.prompt([

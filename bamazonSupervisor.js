@@ -1,7 +1,7 @@
 var connectionDB = require("./DBconnection");
 var inquirer = require("inquirer");
 var AsciiTable = require('ascii-table')
-
+//function asks for supervisors input to choose from three options
 function supervisorInput() {
     inquirer.prompt([
         {
@@ -30,11 +30,12 @@ function supervisorInput() {
         }
     });
 }
-
+//This function lists all department names
 function viewAllDept(){
     connectionDB.query("SELECT department_name FROM departments", function (err, res) {
         if (err) throw err;
         // Log all results of the SELECT statement
+        if (res.length != 0) {
         var tableFormat = new AsciiTable();
         tableFormat.setHeading('DEPARTMENT NAME');
         for (var index in res){
@@ -43,15 +44,23 @@ function viewAllDept(){
         }
         console.log(tableFormat.toString());
         connectionDB.end();
+        }
+        else{
+            console.log("No records found.");
+            connectionDB.end();
+        }
 
 
     });
 
 }
+
+//This function lists the product sales for each department
 function viewSalesByDept(){
     connectionDB.query("select departments.department_id,departments.department_name,departments.over_head_costs,SUM(products.product_sales) as product_sales,(SUM(product_sales)-departments.over_head_costs) as total_profit from departments inner join products where departments.department_name=products.department_name group by products.department_name;", function (err, res) {
         if (err) throw err;
         // Log all results of the SELECT statement
+        if (res.length != 0) {
         var tableFormat = new AsciiTable('PRODUCT SALES BY DEPARTMENT');
         tableFormat.setHeading('DEPARTMENT ID', 'DEPARTMENT NAME', 'OVER HEAD COST', 'PRODUCT SALES','TOTAL PROFIT');
         for (var index in res){
@@ -60,12 +69,17 @@ function viewSalesByDept(){
         }
         console.log(tableFormat.toString());
         connectionDB.end();
+        }
+        else{
+            console.log("No records found.");
+            connectionDB.end();
+        }
 
 
     });
 
 }
-
+//This function creates a new department record
 function createDept(){
     inquirer.prompt([
 
