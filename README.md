@@ -1,6 +1,10 @@
 # Bamazon
 * This app is Amazon like storefront.
 * App demonstrates Node.js and MYSQL integration
+* To run this app do a git clone https://github.com/nvidyakarthik/Bamazon.git
+* Then run the commands schema.sql and seeds.sql in MYSQL workbench to create a database,table structure and table data.
+* Run the command `npm i` to install all the packages.
+* To run each view follow the command given in each challenge.
 
 ### Challenge #1: Customer View (Minimum Requirement)
 * The app will take in orders from customers and deplete stock from the store's inventory.
