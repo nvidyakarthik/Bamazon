@@ -29,6 +29,16 @@
 ![bamazon manager view](https://github.com/nvidyakarthik/Bamazon/blob/master/Demos/bamazonManager.gif)
 
 ### Challenge #3: Supervisor View (Final Level)
+* For the Supervisor View start the app using `node bamazonSupervisor.js`
+* App prompts with a list of menu options to choose from
+`View products Sales by Department`,
+`Create new Department`,
+`View all Departments`
+* Selecting `View Product sales by Department` option lists all the products sale by department in a table view
+* Selecting `View all Departments` option  lists all the department names.
+* `Create new Department` option prompts the user with the Department name and overhead cost.Below demo adds new department `Electronics` with an overhead cost 3000 .New Department added is shown in demo by listing all the departments.
+* Last part of the Demo shows the product sales by department.In Customer view  user is making a purchase of the ItemId 4124(baby Dept) with number of units 3000 so the total cost is $86190.00.In the Supervisor View we are taking a look at these transactions made.So the Total Profit for the baby Department 86190-6000=80190(Total sales-overhead cost=Total profit) is highlighted.
+
 
 ![bamazon supervisor view](https://github.com/nvidyakarthik/Bamazon/blob/master/Demos/bamazonSupervisor.gif)
 
