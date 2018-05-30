@@ -15,6 +15,16 @@
 ![bamazon customer view](https://github.com/nvidyakarthik/Bamazon/blob/master/Demos/bamazonCustomer.gif)
 
 ### Challenge #2: Manager View (Next Level)
+* For the Manager View start the app using `node bamazonManger.js`
+* App prompts with a list of menu options to choose from
+ `View products for sale`,
+ `View Low Inventory`,
+ `Add to Inventory`,
+ `Add New Product`
+* Selecting `View products for sale` option lists all the products for sale with a table view
+* Selecting `View Low Inventory` option lists all the products that has inventory less than 100
+* `Add to Inventory` option prompts the user with Item Id and Quantities to add.(Below demo adds 100 quantities to Item Id 4123 So check for the highlighted 200 updated quantity) 
+* `Add New Product` option asks the user to enter product name,department name,price and quantity.(Below demo adds the product Boys Tshirt,clothing department ,each for the price of 15 dollars and quanitity is 500.New product added is highlighted )
 
 ![bamazon manager view](https://github.com/nvidyakarthik/Bamazon/blob/master/Demos/bamazonManager.gif)
 
